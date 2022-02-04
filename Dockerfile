@@ -9,3 +9,5 @@ COPY ./manticore.conf /etc/manticoresearch/manticore.conf
 
 ENV CHECKING_FILE=threads.spm
 RUN crontab /etc/cron.d/reindex.cron
+
+VOLUME /var/lib/manticore
