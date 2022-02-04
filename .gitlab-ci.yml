@@ -15,30 +15,9 @@ build-x86:
   tags:
     - docker
   script:
-    - TARGET_IMAGE=$CONTAINER_TEST_X86_IMAGE
-    - docker build --pull -t $TARGET_IMAGE .
-    - docker push $TARGET_IMAGE
-build-arm:
-  stage: build
-  tags:
-    - docker-arm
-  script:
-    - TARGET_IMAGE=$CONTAINER_TEST_ARM_IMAGE
-    - docker build --pull -t $TARGET_IMAGE .
-    - docker push $TARGET_IMAGE
-combine:
-  stage: combine
-  tags:
-    - docker
-  script:
     - TARGET_IMAGE=$CONTAINER_TEST_IMAGE
-    - SOURCE_IMAGE_2=$CONTAINER_TEST_ARM_IMAGE
-    - SOURCE_IMAGE_1=$CONTAINER_TEST_X86_IMAGE
-    - docker pull $SOURCE_IMAGE_1
-    - docker pull $SOURCE_IMAGE_2
-    - docker manifest create $TARGET_IMAGE --amend $SOURCE_IMAGE_1 --amend
-      $SOURCE_IMAGE_2
-    - docker manifest push $TARGET_IMAGE
+    - docker build --pull -t $TARGET_IMAGE .
+    - docker push $TARGET_IMAGE
 deploy_latest:
   stage: deploy
   tags:
