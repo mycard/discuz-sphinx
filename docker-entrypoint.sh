@@ -35,10 +35,16 @@ _main() {
     # allow the container to be started with `--user`
     if [ "$(id -u)" = '0' ]; then
       find /var/lib/manticore /var/log/manticore /var/run/manticore /etc/manticoresearch \! -user manticore -exec chown manticore '{}' +
+      rm /tmp/reindex.lock
+      cron
       exec gosu manticore "$0" "$@"
     fi
   fi
   _replace_conf_from_env
+  if [[ ! -f "$CHECKING_FILE" ]]; then
+    echo "Indexing all..."
+    indexer --all
+  fi
   exec "$@"
 }
 
@@ -80,18 +86,7 @@ _replace_conf_from_env() {
     sed -i -E "$sed_query" /etc/manticoresearch/manticore.conf
   fi
 }
-
-_check_index_all() {
-  if [[ ! -f "$CHECKING_FILE" ]]; then
-    echo "Indexing all..."
-    gosu manticore indexer --all
-  fi
-}
-
 # If we are sourced from elsewhere, don't perform any further actions
 if ! _is_sourced; then
-  _check_index_all
-  rm -rf /tmp/reindex.lock
-  cron
   _main "$@"
 fi
