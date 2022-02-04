@@ -82,7 +82,7 @@ _replace_conf_from_env() {
 }
 
 _check_index_all() {
-  if [[ ! -f "/var/lib/manticore/$CHECKING_FILE" ]]; then
+  if [[ ! -f "$CHECKING_FILE" ]]; then
     echo "Indexing all..."
     gosu manticore indexer --all
   fi
