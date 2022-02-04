@@ -1,2 +1,2 @@
-0 4 * * * /usr/bin/flock -xE 0 /tmp/reindex.lock /usr/local/bin/gosu manticore /usr/bin/indexer --rotate threads posts > /proc/1/fd/1 2>&1
-* * * * * /usr/bin/flock -nxE 0 /tmp/reindex.lock /usr/local/bin/gosu manticore /usr/bin/indexer --rotate threads_minute posts_minute > /proc/1/fd/1 2>&1
+0 4 * * * /bin/bash -c '/usr/bin/flock -xE 0 /tmp/reindex.lock /usr/local/bin/gosu manticore /usr/bin/indexer --rotate threads posts' > /proc/1/fd/1 2>&1
+* * * * * /bin/bash -c '/usr/bin/flock -nxE 0 /tmp/reindex.lock /usr/local/bin/gosu manticore /usr/bin/indexer --rotate threads_minute posts_minute' > /proc/1/fd/1 2>&1
