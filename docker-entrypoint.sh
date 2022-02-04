@@ -41,7 +41,7 @@ _main() {
     fi
   fi
   _replace_conf_from_env
-  if [[ ! -f "$CHECKING_FILE" ]]; then
+  if [[ ! -f "/var/lib/manticore/$CHECKING_FILE" ]]; then
     echo "Indexing all..."
     indexer --all
   fi
