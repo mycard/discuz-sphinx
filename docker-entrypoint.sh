@@ -35,7 +35,7 @@ _main() {
     # allow the container to be started with `--user`
     if [ "$(id -u)" = '0' ]; then
       find /var/lib/manticore /var/log/manticore /var/run/manticore /etc/manticoresearch \! -user manticore -exec chown manticore '{}' +
-      rm -rf /tmp/reindex.lock
+      rm -rf /var/run/reindex.lock
       cron
       exec gosu manticore "$0" "$@"
     fi

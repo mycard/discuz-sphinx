@@ -1,2 +1,2 @@
-0 4 * * * /bin/bash -c '/usr/bin/flock -xE 0 /tmp/reindex.lock /usr/bin/indexer --rotate threads posts' > /var/log/manticore/reindex-daily.log 2>&1
-* * * * * /bin/bash -c '/usr/bin/flock -nxE 0 /tmp/reindex.lock /usr/bin/indexer --rotate threads_minute posts_minute' > /var/log/manticore/reindex-minute.log 2>&1
+0 4 * * * /bin/bash -c 'cd /var/lib/manticore && /usr/bin/flock -xE 0 /var/run/reindex.lock /usr/bin/indexer --rotate threads posts' > /var/log/manticore/reindex-daily.log 2>&1
+* * * * * /bin/bash -c 'cd /var/lib/manticore && /usr/bin/flock -nxE 0 /var/run/reindex.lock /usr/bin/indexer --rotate threads_minute posts_minute' > /var/log/manticore/reindex-minute.log 2>&1
