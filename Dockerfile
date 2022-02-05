@@ -8,6 +8,6 @@ COPY ./reindex.cron /etc/cron.d/reindex.cron
 COPY ./manticore.conf /etc/manticoresearch/manticore.conf
 
 ENV CHECKING_FILE=posts_minute.spi
-RUN crontab /etc/cron.d/reindex.cron
+RUN crontab /etc/cron.d/reindex.cron -u manticore
 
 VOLUME /var/lib/manticore
